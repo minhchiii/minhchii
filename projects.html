@@ -126,7 +126,7 @@
 
         /* Container tổng thể */
         .container {
-            max-width: 1200px;
+            max-width: 900px; /* Thu hẹp lại một chút để đọc dọc cân đối hơn */
             margin: 0 auto;
             padding: 60px 4% 100px 4%;
         }
@@ -147,41 +147,28 @@
             font-size: 1.2rem; 
         }
 
-        /* Grid responsive thông minh giúp thẻ không bị co cụm */
+        /* Thay đổi từ hàng ngang sang hàng dọc flex-direction: column */
         .grid {
             display: flex;
+            flex-direction: column;
             gap: 35px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-            padding-bottom: 25px;
             padding-top: 10px;
         }
 
-        .grid::-webkit-scrollbar {
-            height: 10px;
-        }
-
-        .grid::-webkit-scrollbar-thumb {
-            background: #ffb6c1;
-            border-radius: 20px;
-        }
-
-        /* Làm mới thiết kế Card */
+        /* Làm mới thiết kế Card - Bỏ giới hạn min-width/max-width để tự co giãn dọc */
         .card {
-            min-width: 540px; 
-            max-width: 540px;
+            width: 100%;
             background: var(--card-bg);
             border-radius: 25px;
             padding: 35px;
             box-shadow: var(--shadow);
             transition: var(--transition);
             border: 1px solid rgba(255, 141, 161, 0.1);
-            flex-shrink: 0;
+            box-sizing: border-box;
         }
 
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-5px) scale(1.01);
             box-shadow: var(--shadow-hover);
             border-color: rgba(255, 141, 161, 0.3);
         }
@@ -294,10 +281,6 @@
             border-top: 1px solid rgba(255, 141, 161, 0.1);
             background: #fff;
             position: relative;
-        }
-
-        #slideRight {
-            display: none; 
         }
 
         @keyframes pageIn {
@@ -424,7 +407,6 @@
     </div>
 
     <footer>
-        <button id="slideRight"> <i class="fa-solid fa-chevron-right"></i> </button>
         <p>🌸 Thiết kế với tình yêu bởi Trịnh Lâm Minh Chi © 2026</p>
     </footer>
 
