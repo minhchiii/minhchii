@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minh Chi | Trang chủ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS VÙNG NỀN VÀ CÁC NGÔI SAO */
+        .star-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            color: #ffd700;
+            opacity: 0.6;
+            animation: twinkle 3s infinite ease-in-out alternate;
+        }
+
+        @keyframes twinkle {
+            0% { transform: scale(0.8); opacity: 0.3; }
+            100% { transform: scale(1.2); opacity: 0.9; text-shadow: 0 0 10px #ffd700; }
+        }
+
+        .star:nth-child(1) { top: 15%; left: 10%; font-size: 24px; animation-delay: 0s; }
+        .star:nth-child(2) { top: 25%; left: 85%; font-size: 30px; animation-delay: 0.5s; }
+        .star:nth-child(3) { top: 75%; left: 15%; font-size: 18px; animation-delay: 1s; }
+        .star:nth-child(4) { top: 80%; left: 80%; font-size: 26px; animation-delay: 1.5s; }
+        .star:nth-child(5) { top: 40%; left: 90%; font-size: 20px; animation-delay: 0.8s; color: #ffb6c1; }
+        .star:nth-child(6) { top: 10%; left: 50%; font-size: 16px; animation-delay: 1.2s; color: #ffb6c1; }
+
+        /* NÂNG CẤP KHUNG ẢNH VÀ TAI THỎ CÂN XỨNG */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap; /* Tự động xuống hàng trên màn hình nhỏ */
+            margin-bottom: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            min-width: 320px;
+            margin-top: 120px; /* Tạo khoảng trống phía trên cho đôi tai thỏ lớn */
+        }
+
+        /* Tai thỏ: Lòng trong màu trắng, viền màu hồng ngọt ngào */
+        .hero-image::before,
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: -110px; 
+            width: 85px; 
+            height: 220px; 
+            background-color: #ffffff; /* Lòng tai màu trắng */
+            border: 8px solid #ffb6c1; /* Viền tai màu hồng dày dặn */
+            box-shadow: inset 0 0 15px rgba(255, 182, 193, 0.6); /* Hiệu ứng ửng hồng bên trong */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            z-index: -1;
+        }
+
+        .hero-image::before {
+            left: calc(50% - 145px);
+            transform: rotate(-18deg);
+        }
+
+        .hero-image::after {
+            right: calc(50% - 145px);
+            transform: rotate(18deg);
+        }
+
+        /* Ảnh đại diện được phóng to tỉ lệ chuẩn với trang web */
+        .hero-image img {
+            width: 100%;
+            max-width: 380px; /* Kích thước tối đa cực kỳ cân đối trên máy tính */
+            height: auto;
+            aspect-ratio: 1 / 1; /* Giữ ảnh luôn vuông để bo tròn không bị méo */
+            object-fit: cover;
+            border-radius: 50%; 
+            border: 6px solid #ffb6c1; /* Viền ảnh tone-sur-tone với viền tai thỏ */
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CSS PHẦN SỞ THÍCH */
+        .hobbies-section {
+            margin: 25px 0;
+            padding: 15px 20px;
+            background-color: rgba(255, 192, 203, 0.15);
+            border-left: 5px solid #ffb6c1;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .hobbies-section h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: var(--text-dark, #333);
+        }
+
+        .hobbies-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+        }
+
+        .hobbies-section li {
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hobbies-section i {
+            width: 30px;
+            color: #ffb6c1;
+            font-size: 1.1rem;
+        }
+
+        /* CSS PHẦN MỤC TIÊU PORTFOLIO - THAY ĐỔI ĐỂ PHÙ HỢP VỚI LƯỚI 4 CỘT CÂN ĐỐI */
+        .portfolio-goals {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 182, 193, 0.4);
+            border-radius: 24px;
+            padding: 35px;
+            margin: 40px 0 60px 0;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.15);
+        }
+
+        .portfolio-goals h2 {
+            font-size: 1.8rem;
+            color: #ff758f;
+            margin-top: 0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .portfolio-goals p.intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .goals-grid {
+            display: grid;
+            /* Tự động chuyển đổi linh hoạt: Max 4 cột trên máy tính, co lại trên điện thoại */
+grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .goal-item {
+            background: #ffffff;
+            border: 1px solid rgba(255, 182, 193, 0.2);
+            border-radius: 16px;
+            padding: 22px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .goal-item:hover {
+            transform: translateY(-5px);
+            border-color: #ffb6c1;
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.25);
+        }
+
+        .goal-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 192, 203, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff758f;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .goal-item h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.15rem;
+            color: #333;
+        }
+
+        .goal-item p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #666;
+            text-align: justify;
+        }
+
+        /* NÚT XEM HÀNH TRÌNH ĐƯỢC CĂN CHỈNH LẠI */
+        .hero-content .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: #ffb6c1;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
+            transition: all 0.3s ease;
+        }
+        .hero-content .btn:hover {
+            background: #ff8da1;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.6);
+        }
+
+        /* CSS NÚT CHUYỂN TRANG FIXED */
+        .page-arrows{
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            display: flex;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .arrow-btn{
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #ffb6c1;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 20px rgba(255,182,193,0.4);
+            transition: 0.35s ease;
+            cursor: pointer;
+        }
+
+        .arrow-btn:hover{
+            transform: translateY(-5px) scale(1.08);
+            background: #ff8da1;
+        }
+
+        body{
+            animation: pageIn .5s ease;
+        }
+
+        body.page-out{
+            animation: pageOut .5s ease forwards;
+        }
+
+        @keyframes pageIn{
+            from{ opacity:0; transform:translateX(40px); }
+            to{ opacity:1; transform:translateX(0); }
+        }
+
+        @keyframes pageOut{
+            from{ opacity:1; transform:translateX(0); }
+            to{ opacity:0; transform:translateX(-40px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="star-bg">
+        <i class="fa-solid fa-star star"></i>
+        <i class="fa-solid fa-star star"></i>
+        <i class="fa-solid fa-star star"></i>
+        <i class="fa-solid fa-star star"></i>
+        <i class="fa-solid fa-star star"></i>
+        <i class="fa-solid fa-star star"></i>
+    </div>
+
+    <nav>
+        <div class="logo"><i class="fa-solid fa-leaf" style="color: var(--accent);"></i> Chi.</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Trang chủ</a>
+            <a href="projects.html">Dự án & Học tập</a>
+            <a href="summary.html">Tổng kết</a>
+            <a href="contact.html">Giao lưu</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- SECTION HERO (GIỚI THIỆU CHÍNH) -->
+        <section class="hero">
+            <div class="hero-content">
+                <p style="color: var(--text-muted); font-size: 1.2rem; font-weight: 700;">こんにちは! (Konnichiwa)</p>
+                <h1>Trịnh Lâm Minh Chi</h1>
+                <h2>Sinh viên ngành Nhật Bản học.</h2>
+                <p>Tôi đang theo học tại Đại học Việt Nhật - Đại học quốc gia Hà Nội. Với tình yêu mãnh liệt dành cho ngôn ngữ và văn hóa xứ sở hoa anh đào, tôi luôn nỗ lực làm cầu nối văn hóa giữa Việt Nam và Nhật Bản.</p>
+                
+                <div class="hobbies-section">
+                    <h3>Sở thích của tôi:</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-palette"></i> Vẽ tranh</li>
+                        <li><i class="fa-solid fa-book-open"></i> Đọc truyện</li>
+                        <li><i class="fa-solid fa-bed"></i> Ngủ</li>
+                    </ul>
+                </div>
+
+                <a href="projects.html" class="btn"><i class="fa-solid fa-star"></i> Xem hành trình của tôi</a>
+            </div>
+            <div class="hero-image">
+                <img src="me.jpg" alt="Minh Chi">
+            </div>
+        </section>
+
+        <!-- SECTION MỤC TIÊU PORTFOLIO CHỨA 4 CỤC CÂN ĐỐI TUYỆT ĐỐI -->
+        <section class="portfolio-goals">
+            <h2>Mục tiêu của Portfolio này 🌸</h2>
+            <p class="intro-text">Học tập và phát triển trong kỷ nguyên số không chỉ dừng lại ở sách vở, và Portfolio này chính là không gian lưu trữ trực quan nhất cho hành trình đó của mình. Trang web được xây dựng với các mục tiêu cốt lõi:</p>
+            
+            <div class="goals-grid">
+                <!-- Cục 1 -->
+                <div class="goal-item">
+                    <div class="goal-icon">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h4>Khẳng định kỹ năng số</h4>
+                    <p>Là sản phẩm thực tế giúp mình áp dụng và làm chủ các kỹ năng công nghệ đã học, từ tư duy thiết kế giao diện (UI/UX), tối ưu hóa trải nghiệm người dùng, đến việc quản lý dữ liệu và thiết lập hệ thống làm việc số đồng bộ.</p>
+                </div>
+
+                <!-- Cục 2 -->
+                <div class="goal-item">
+                    <div class="goal-icon">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <h4>Lưu trữ sản phẩm cá nhân</h4>
+                    <p>Nơi hệ thống hóa toàn bộ các bài tập, dự án nghiên cứu và báo cáo chuyên ngành Nhật Bản học một cách ngăn nắp, khoa học, giúp mình dễ dàng nhìn lại tiến trình phát triển của bản thân.</p>
+                </div>
+
+                <!-- Cục 3 -->
+                <div class="goal-item">
+                    <div class="goal-icon">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h4>Cầu nối chia sẻ & giao lưu</h4>
+                    <p>Tạo ra một "bản lý lịch số" chuyên nghiệp, mở nhưng vô cùng gần gũi, giúp mình dễ dàng kết nối, chia sẻ tài nguyên học tập với thầy cô, bạn bè và mở rộng cơ hội tiếp cận với các tổ chức trong tương lai.</p>
+                </div>
+
+                <!-- Cục 4 (MỚI BỊA RA THÊM ĐỂ ĐẢM BẢO LƯỚI ĐẸP CÂN ĐỐI) -->
+                <div class="goal-item">
+                    <div class="goal-icon">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h4>Tư duy số & Liêm chính</h4>
+                    <p>Định hình phong cách làm việc chuyên nghiệp, rèn luyện tư duy phản biện khi khai thác dữ liệu từ AI, đồng thời cam kết tuân thủ nghiêm túc các nguyên tắc an toàn thông tin và đạo đức liêm chính học thuật trên không gian mạng.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ĐIỀU HƯỚNG TRANG FIXED NẰM GÓC DƯỚI -->
+    <div class="page-arrows">
+        <a id="prevPage" class="arrow-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a id="nextPage" class="arrow-btn">
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <footer>
+        <p>🌸 Thiết kế với tình yêu bởi Trịnh Lâm Minh Chi © 2026</p>
+    </footer>
+
+    <script>
+        const pages = [
+            "index.html",
+            "projects.html",
+            "summary.html",
+            "contact.html"
+        ];
+
+        const current = window.location.pathname.split("/").pop() || "index.html";
+        let currentIndex = pages.indexOf(current);
+        if(currentIndex === -1) currentIndex = 0;
+
+        const prevIndex = (currentIndex - 1 + pages.length) % pages.length;
+        const nextIndex = (currentIndex + 1) % pages.length;
+
+        document.getElementById("prevPage").href = pages[prevIndex];
+        document.getElementById("nextPage").href = pages[nextIndex];
+
+        document.querySelectorAll(".arrow-btn").forEach(btn=>{
+            btn.addEventListener("click", function(e){
+                e.preventDefault();
+                document.body.classList.add("page-out");
+                const target = this.href;
+                setTimeout(()=>{
+                    window.location.href = target;
+                }, 450);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minh Chi | Dự án & Bài tập</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Khai báo hệ biến màu sắc đồng bộ, sang trọng */
+        :root {
+            --accent: #ff8da1;
+            --accent-hover: #ff6b84;
+            --bg-gradient: linear-gradient(135deg, #fff5f6 0%, #fffbfb 100%);
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --shadow: 0 10px 30px rgba(255, 141, 161, 0.08);
+            --shadow-hover: 0 15px 35px rgba(255, 141, 161, 0.18);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            animation: pageIn .5s ease;
+        }
+
+        body.page-out{
+            animation: pageOut .5s ease forwards;
+        }
+
+        /* CSS VÙNG NỀN VÀ HIỆU ỨNG TRÁI TIM + NGÔI SAO LẤP LÁNH */
+        .star-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .star, .heart {
+            position: absolute;
+            opacity: 0.5;
+            animation: twinkle 3.5s infinite ease-in-out alternate;
+        }
+
+        .star {
+            color: #ffd700;
+        }
+
+        .heart {
+            color: #ffb6c1;
+        }
+
+        @keyframes twinkle {
+            0% { 
+                transform: scale(0.8) translateY(0); 
+                opacity: 0.3; 
+            }
+            100% { 
+                transform: scale(1.15) translateY(-10px); 
+                opacity: 0.85; 
+                text-shadow: 0 0 12px currentColor; 
+            }
+        }
+
+        /* Định vị các vị trí ngôi sao và trái tim xen kẽ xung quanh màn hình */
+        .star:nth-child(1) { top: 12%; left: 6%; font-size: 22px; animation-delay: 0s; }
+        .heart:nth-child(2) { top: 20%; left: 90%; font-size: 26px; animation-delay: 0.5s; color: #ff758f; }
+        .star:nth-child(3) { top: 78%; left: 8%; font-size: 18px; animation-delay: 1s; }
+        .heart:nth-child(4) { top: 82%; left: 88%; font-size: 24px; animation-delay: 1.5s; color: #ff8da1; }
+        .heart:nth-child(5) { top: 45%; left: 93%; font-size: 20px; animation-delay: 0.8s; }
+        .star:nth-child(6) { top: 8%; left: 45%; font-size: 16px; animation-delay: 1.2s; }
+        .heart:nth-child(7) { top: 65%; left: 4%; font-size: 22px; animation-delay: 2s; color: #ffb6c1; }
+        .star:nth-child(8) { top: 50%; left: 85%; font-size: 20px; animation-delay: 0.3s; }
+
+        /* Tối ưu thanh điều hướng Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .nav-links a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 1.1rem; 
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+        }
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* Container tổng thể */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 4% 100px 4%;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .header-section h1 {
+            color: var(--accent);
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(255, 141, 161, 0.15);
+        }
+        
+        .header-section p {
+            font-size: 1.2rem; 
+        }
+
+        /* Grid responsive thông minh giúp thẻ không bị co cụm */
+        .grid {
+            display: flex;
+            gap: 35px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            padding-bottom: 25px;
+            padding-top: 10px;
+        }
+
+        .grid::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .grid::-webkit-scrollbar-thumb {
+            background: #ffb6c1;
+            border-radius: 20px;
+        }
+
+        /* Làm mới thiết kế Card */
+        .card {
+            min-width: 540px; 
+            max-width: 540px;
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 141, 161, 0.1);
+            flex-shrink: 0;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(255, 141, 161, 0.3);
+        }
+
+        .card-tag {
+            align-self: flex-start;
+            font-size: 0.9rem; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(255, 141, 161, 0.1);
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .card h4 {
+            font-size: 1.5rem; 
+            margin: 0 0 20px 0;
+            color: #222;
+            font-weight: 600;
+        }
+
+        /* Hộp chi tiết nội dung */
+        .project-details {
+            background: rgba(255, 141, 161, 0.02);
+            padding: 22px;
+            border-radius: 14px;
+            border-left: 5px solid var(--accent);
+        }
+        .project-details p {
+            margin: 0 0 15px 0;
+            font-size: 1.05rem; 
+            color: #444;
+            text-align: justify;
+        }
+        .project-details p:last-child {
+            margin-bottom: 0;
+        }
+        .project-details strong {
+            color: #111;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.1rem; 
+        }
+
+        /* Nút đính kèm tệp */
+        .attachment-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            padding: 10px 22px;
+            background: #fff;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem; 
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(255, 141, 161, 0.05);
+        }
+        .attachment-link:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(255, 141, 161, 0.2);
+        }
+
+        /* ĐIỀU HƯỚNG MŨI TÊN TRANG NẰM CỐ ĐỊNH */
+        .page-arrows {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            display: flex;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .arrow-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #ffb6c1;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 20px rgba(255,182,193,0.4);
+            transition: 0.35s ease;
+            cursor: pointer;
+        }
+
+        .arrow-btn:hover {
+            transform: translateY(-5px) scale(1.08);
+            background: #ff8da1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 1rem; 
+            border-top: 1px solid rgba(255, 141, 161, 0.1);
+            background: #fff;
+            position: relative;
+        }
+
+        #slideRight {
+            display: none; 
+        }
+
+        @keyframes pageIn {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pageOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(-40px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="star-bg">
+        <i class="fa-solid fa-star star"></i>
+        <i class="fa-solid fa-heart heart"></i>
+        <i class="fa-solid fa-star star"></i>
+        <i class="fa-solid fa-heart heart"></i>
+        <i class="fa-solid fa-heart heart"></i>
+        <i class="fa-solid fa-star star"></i>
+        <i class="fa-solid fa-heart heart"></i>
+        <i class="fa-solid fa-star star"></i>
+    </div>
+
+    <nav>
+        <div class="logo"><i class="fa-solid fa-leaf" style="color: var(--accent);"></i> Chi.</div>
+        <div class="nav-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="projects.html" class="active">Dự án & Bài tập</a>
+            <a href="summary.html">Tổng kết</a>
+            <a href="contact.html">Giao lưu</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-section">
+            <h1>Các Bài Tập Đã Hoàn Thành 🌸</h1>
+            <p style="color: var(--text-muted); margin-bottom: 0;">Tập hợp các kiến thức và sản phẩm thực hành cá nhân xuất sắc trong môi trường số.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <span class="card-tag">Bài tập 1</span>
+                <h4>Bài 1: Máy tính và các thiết bị ngoại vi</h4>
+                <div class="project-details">
+                    <p><strong>🎯 Mục tiêu:</strong> Rèn luyện kỹ năng tạo, đổi tên, sao chép, di chuyển, xóa tệp tin và thư mục một cách thành thạo trên hệ điều hành Windows.</p>
+                    <p><strong>📝 Tóm tắt quá trình:</strong> Mình đã thực hiện bài tập thông qua thao tác trực tiếp trên giao diện File Explorer của Windows để làm chủ quy trình quản lý dữ liệu cá nhân.</p>
+                    <p><strong>📎 Sản phẩm:</strong><br>
+                        <a href="bai1.pdf" class="attachment-link"><i class="fa-solid fa-file-pdf"></i> Xem File PDF</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">Bài tập 2</span>
+                <h4>Bài 2: Khai thác dữ liệu và thông tin</h4>
+                <div class="project-details">
+                    <p><strong>🎯 Mục tiêu:</strong> Phát kỹ năng tìm kiếm và đánh giá thông tin học thuật từ các nguồn đáng tin cậy.</p>
+                    <p><strong>📝 Tóm tắt quá trình:</strong> Để hoàn thành báo cáo về "Ngành Nhật Bản học và cơ hội việc làm", mình đã tổ chức dữ liệu khoa học trong File Explorer bằng cách tạo cây thư mục phân cấp. Mình sử dụng bộ từ khóa chuyên ngành để truy xuất 10 tài liệu uy tín từ Google Scholar và CSDL thư viện, sau đó dùng tính năng Properties của Windows để kiểm tra siêu dữ liệu, đảm bảo tài liệu có tính cập nhật sau năm 2018. Sau khi đánh giá nội dung, phương pháp nghiên cứu và trích dẫn, mình thực hiện thao tác Move các tài liệu đạt chuẩn vào thư mục dữ liệu sạch và Delete những nguồn không tin cậy. Cuối cùng, mình tổng hợp kết quả vào bảng dữ liệu và lập danh mục tham khảo chuẩn Harvard trong Microsoft Word, đảm bảo toàn bộ quá trình nghiên cứu được thực hiện logic, ngăn nắp và chuyên nghiệp.</p>
+                    <p><strong>📎 Sản phẩm:</strong><br>
+                        <a href="bai2.docx" class="attachment-link"><i class="fa-solid fa-file-word"></i> Xem File DOCX</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">Bài tập 3</span>
+                <h4>Bài 3: Tổng quan về trí tuệ nhân tạo</h4>
+                <div class="project-details">
+                    <p><strong>🎯 Mục tiêu:</strong> Phát triển kỹ năng thiết kế prompt hệ thống và hiệu quả để tối ưu hóa việc học tập với AI. Mục tiêu cụ thể là nắm vững các kỹ thuật Role Prompting (đóng vai), Chain-of-thought (chuỗi suy nghĩ) và Few-shot (cung cấp ví dụ) để cá nhân hóa việc học các khái niệm tiếng Nhật phức tạp, từ đó nâng cao hiệu suất ôn tập và tư duy logic trong môi trường số.</p>
+                    <p><strong>📝 Tóm tắt quá trình:</strong> Mình đã thực hiện bài tập bằng cách phân tích các hạn chế của câu lệnh cơ bản, từ đó nâng cấp chúng thông qua các kỹ thuật chuyên sâu như Role Prompting, Chain-of-thought và Few-shot examples. Quá trình này bao gồm việc chạy thử nghiệm trực tiếp trên AI để tinh chỉnh ngữ cảnh và giới hạn đầu ra, đảm bảo kết quả đạt được độ chính xác và tính sư phạm cao nhất. Kết quả cuối cùng là một bộ thư viện prompt tối ưu, giúp cá nhân hóa việc học tiếng Nhật và nâng cao hiệu quả ôn tập JLPT.</p>
+                    <p><strong>📎 Sản phẩm:</strong><br>
+                        <a href="bai3.docx" class="attachment-link"><i class="fa-solid fa-file-word"></i> Báo cáo hoàn thiện</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">Bài tập 4</span>
+                <h4>Bài 4: Giao tiếp và hợp tác trong môi trường số</h4>
+                <div class="project-details">
+                    <p><strong>🎯 Mục tiêu:</strong> Thành thạo việc sử dụng các công cụ hợp tác trực tuyến để tối ưu hóa hiệu suất làm việc nhóm. Mục tiêu là thực hành điều phối dự án thông qua quy trình quản lý công việc minh bạch, cộng tác tài liệu theo thời gian thực và duy trì kênh giao tiếp hiệu quả, từ đó đảm bảo tính nhất quán và chất lượng sản phẩm cuối cùng của dự án.</p>
+                    <p><strong>📝 Tóm tắt quá trình:</strong> Trong dự án nhóm, mình đã thiết lập hệ thống làm việc số đồng bộ bằng cách sử dụng Trello để phân rã nhiệm vụ thành các trạng thái (To-do, Doing, Done), giúp theo dõi tiến độ cá nhân một cách minh bạch. Mình đã thực hiện đóng góp trực tiếp trên Google Docs với các phiên bản chỉnh sửa được lưu vết, đồng thời tổ chức tài liệu cá nhân khoa học trên Google Drive theo cấu trúc thư mục rõ ràng. Ngoài ra, mình duy trì kết nối nhóm liên tục qua Discord để thảo luận, phản hồi nhanh các vấn đề phát sinh và đồng bộ hóa công việc, đảm bảo toàn bộ quy trình từ lên ý tưởng đến hoàn thiện sản phẩm đều được ghi lại dấu vết công việc rõ ràng.</p>
+                    <p><strong>📎 Sản phẩm:</strong><br>
+                        <a href="bai4.docx" class="attachment-link"><i class="fa-solid fa-file-word"></i> Báo cáo hoàn thiện</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">Bài tập 5</span>
+                <h4>Bài 5: Sáng tạo nội dung số</h4>
+                <div class="project-details">
+                    <p><strong>🎯 Mục tiêu:</strong> Phát triển kỹ năng chuyển đổi các dữ liệu học thuật phức tạp thành hình ảnh trực quan thông qua infographic. Mục tiêu là nắm vững quy trình thiết kế từ khâu sàng lọc thông tin, xây dựng luồng nội dung logic đến việc tối ưu hóa thị giác bằng công cụ chuyên dụng, nhằm truyền đạt thông điệp về sức khỏe một cách khoa học, chuyên nghiệp và hấp dẫn.</p>
+                    <p><strong>📝 Tóm tắt quá trình:</strong> Để hoàn thành infographic chủ đề "Lợi ích của việc tập thể dục mỗi ngày", mình đã thực hiện quy trình thiết kế chuyên nghiệp bằng cách chắt lọc các dữ liệu khoa học quan trọng và xây dựng luồng thông tin logic. Mình sử dụng Canva để phác thảo bố cục, chú trọng việc cân bằng giữa icon minh họa và văn bản để tối ưu khả năng truyền tải nội dung. Cuối cùng, mình lựa chọn phong cách thiết kế tối giản, kiểm tra tính chính xác của dữ liệu và trích dẫn nguồn đầy đủ để đảm bảo sản phẩm đạt tiêu chuẩn học thuật trước khi hoàn thiện.</p>
+                    <p><strong>📎 Sản phẩm:</strong><br>
+                        <a href="bai5.docx" class="attachment-link"><i class="fa-solid fa-folder-open"></i> Báo cáo hoàn thiện</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">Bài tập 6</span>
+                <h4>Bài 6: An toàn và liêm chính học thuật</h4>
+                <div class="project-details">
+                    <p><strong>🎯 Mục tiêu:</strong> Phát triển kỹ năng sử dụng AI một cách có trách nhiệm, đảm bảo tuân thủ các quy tắc đạo đức học thuật. Mục tiêu là xây dựng bộ nguyên tắc cá nhân và quy trình làm việc minh bạch để tận dụng AI như một trợ lý nghiên cứu đắc lực, đồng thời giữ vững tính liêm chính và sự phát triển tư duy độc lập trong quá trình học tập.</p>
+                    <p><strong>📝 Tóm tắt quá trình:</strong> Để hoàn thành bài tập này, mình đã bắt đầu bằng việc nghiên cứu kỹ các quy định về liêm chính học thuật đối với công cụ AI. Mình đã thực hiện một nhiệm vụ tổng hợp tài liệu cụ thể, trong đó ghi lại toàn bộ nhật ký prompt và minh chứng quá trình thẩm định, chỉnh sửa đầu ra từ AI để đảm bảo độ chính xác. Sau đó, mình phân tích sâu các rủi ro đạo đức về quyền sở hữu trí tuệ, xây dựng bộ 7 nguyên tắc sử dụng AI cá nhân và thiết kế một infographic trực quan để minh họa các tiêu chuẩn này. Toàn bộ quy trình từ nghiên cứu chính sách đến thực thi đều hướng tới việc minh bạch hóa sự hỗ trợ từ AI, đảm bảo quyền sở hữu trí tuệ và bảo vệ giá trị học thuật cốt lõi.</p>
+                    <p><strong>📎 Sản phẩm:</strong><br>
+                        <a href="bai6.docx" class="attachment-link"><i class="fa-solid fa-file-word"></i> Báo Cáo Hoàn Thiện</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-arrows">
+        <a id="prevPage" class="arrow-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a id="nextPage" class="arrow-btn">
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <footer>
+        <button id="slideRight"> <i class="fa-solid fa-chevron-right"></i> </button>
+        <p>🌸 Thiết kế với tình yêu bởi Trịnh Lâm Minh Chi © 2026</p>
+    </footer>
+
+    <script>
+    const pages = [
+        "index.html",
+        "projects.html",
+        "summary.html",
+        "contact.html"
+    ];
+
+    const current = window.location.pathname.split("/").pop() || "projects.html";
+    const currentIndex = pages.indexOf(current);
+
+    const prevIndex = (currentIndex - 1 + pages.length) % pages.length;
+    const nextIndex = (currentIndex + 1) % pages.length;
+
+    document.getElementById("prevPage").href = pages[prevIndex];
+    document.getElementById("nextPage").href = pages[nextIndex];
+
+    document.querySelectorAll(".arrow-btn").forEach(btn=>{
+        btn.addEventListener("click", function(e){
+            e.preventDefault();
+            document.body.classList.add("page-out");
+            const target = this.href;
+            setTimeout(()=>{
+                window.location.href = target;
+            }, 450);
+        });
+    });
+    </script>
+</body>
+</html>

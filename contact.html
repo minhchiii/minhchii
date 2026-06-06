@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minh Chi | Giao lưu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .contact-box {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--bg-card);
+            border-radius: 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            border: 2px dashed #ffb7c5;
+            position: relative;
+            z-index: 10;
+        }
+        .social-icons {
+            margin-top: 35px;
+        }
+        .social-icons a {
+            color: var(--accent);
+            font-size: 2.2rem;
+            margin: 0 15px;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        .social-icons a:hover {
+            color: var(--accent-hover);
+            transform: translateY(-5px);
+        }
+
+        /* --- PHẦN STYLE CHO ĐIỀU HƯỚNG TRANG & KIỂU CHUYỂN TRANG --- */
+        .page-arrows{
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            display: flex;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .arrow-btn{
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #ffb6c1;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 20px rgba(255,182,193,0.4);
+            transition: 0.35s ease;
+            cursor: pointer;
+        }
+
+        .arrow-btn:hover{
+            transform: translateY(-5px) scale(1.08);
+            background: #ff8da1;
+        }
+
+        body{
+            animation: pageIn .5s ease;
+            overflow-x: hidden;
+        }
+
+        body.page-out{
+            animation: pageOut .5s ease forwards;
+        }
+
+        @keyframes pageIn{
+            from{ opacity:0; transform:translateX(40px); }
+            to{ opacity:1; transform:translateX(0); }
+        }
+
+        @keyframes pageOut{
+            from{ opacity:1; transform:translateX(0); }
+            to{ opacity:0; transform:translateX(-40px); }
+        }
+
+        /* --- HIỆU ỨNG BACKGROUND CỎ BỐN LÁ --- */
+        .clover-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .clover-item {
+            position: absolute;
+            fill: #98db9d; /* Tông màu xanh lá pastel dịu nhẹ */
+            opacity: 0;
+            animation: cloverFloat 7s infinite ease-in-out;
+        }
+
+        @keyframes cloverFloat {
+            0%, 100% {
+                transform: scale(0.5) translateY(15px) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1) translateY(-15px) rotate(30deg);
+                opacity: 0.7;
+                filter: drop-shadow(0 4px 10px rgba(152, 219, 157, 0.25));
+            }
+        }
+
+        /* Định vị ngẫu nhiên và TĂNG KÍCH THƯỚC cỏ bốn lá to rõ hơn hẳn */
+        .clover-item:nth-child(1) { top: 15%; left: 7%; width: 55px; height: 55px; animation-delay: 0s; }
+        .clover-item:nth-child(2) { top: 25%; left: 13%; width: 32px; height: 32px; animation-delay: 1.5s; }
+        .clover-item:nth-child(3) { top: 18%; left: 85%; width: 64px; height: 64px; animation-delay: 0.8s; }
+        .clover-item:nth-child(4) { top: 35%; left: 90%; width: 42px; height: 42px; animation-delay: 3.2s; }
+        .clover-item:nth-child(5) { top: 70%; left: 8%; width: 50px; height: 50px; animation-delay: 2.4s; }
+        .clover-item:nth-child(6) { top: 82%; left: 15%; width: 35px; height: 35px; animation-delay: 4.1s; }
+        .clover-item:nth-child(7) { top: 75%; left: 82%; width: 60px; height: 60px; animation-delay: 1.9s; }
+        .clover-item:nth-child(8) { top: 60%; left: 88%; width: 32px; height: 32px; animation-delay: 5s; }
+        .clover-item:nth-child(9) { top: 48%; left: 5%; width: 45px; height: 45px; animation-delay: 3.7s; }
+        .clover-item:nth-child(10) { top: 8%; left: 50%; width: 48px; height: 48px; animation-delay: 2.8s; }
+    </style>
+</head>
+<body>
+
+    <div class="clover-bg">
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+        <svg class="clover-item" viewBox="0 0 100 100"><path d="M50 50 C40 30, 25 35, 35 50 C25 65, 40 70, 50 60 C60 70, 75 65, 65 50 C75 35, 60 30, 50 40 G M50 60 Q48 85, 40 95 Q43 95, 52 60 Z" /></svg>
+    </div>
+
+    <nav>
+        <div class="logo"><i class="fa-solid fa-leaf" style="color: var(--accent);"></i> Chi.</div>
+        <div class="nav-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="projects.html">Dự án & Học tập</a>
+            <a href="summary.html">Tổng kết</a>
+            <a href="contact.html" class="active">Giao lưu</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="contact-box">
+            <h2 style="font-size: 2.8rem; margin-bottom: 20px; color: var(--accent);">Kết nối với mình nhé! 🍡</h2>
+            <p style="color: var(--text-muted); font-size: 1.15rem; max-width: 600px; margin: 0 auto 35px;">
+                Nếu bạn muốn thảo luận về lịch sử văn học Nhật Bản, trao đổi kinh nghiệm học ngoại ngữ, đừng ngần ngại nhắn tin nha!
+            </p>
+            <a href="mailto:25111038@st.vju.ac.vn" class="btn" style="font-size: 1.2rem;"><i class="fa-regular fa-envelope"></i> Gửi thư cho Chi</a>
+            
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-arrows">
+        <a id="prevPage" class="arrow-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <a id="nextPage" class="arrow-btn">
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <footer>
+        <p>🌸 Thiết kế với tình yêu bởi Trịnh Lâm Minh Chi © 2026</p>
+    </footer>
+
+    <script>
+    const pages = [
+        "index.html",
+        "projects.html",
+        "summary.html",
+        "contact.html"
+    ];
+
+    const current = window.location.pathname.split("/").pop() || "contact.html";
+    const currentIndex = pages.indexOf(current);
+
+    const prevIndex = (currentIndex - 1 + pages.length) % pages.length;
+    const nextIndex = (currentIndex + 1) % pages.length;
+
+    document.getElementById("prevPage").href = pages[prevIndex];
+    document.getElementById("nextPage").href = pages[nextIndex];
+
+    document.querySelectorAll(".arrow-btn").forEach(btn=>{
+        btn.addEventListener("click", function(e){
+            e.preventDefault();
+            document.body.classList.add("page-out");
+            const target = this.href;
+            setTimeout(()=>{
+                window.location.href = target;
+            }, 450);
+        });
+    });
+    </script>
+</body>
+</html>
